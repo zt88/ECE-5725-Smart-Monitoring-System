@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Baby Monitor</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Baby Monitor</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#obj">Project Objective</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#testing">Testing</a></li>
+            <li><a href="#results">Result & Conclusions</a></li>
+            <li><a href="#future">Future work</a></li>
+            <li><a href="#work">Work distribution</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1 style="margin-bottom: 20px;">Baby Monitor</h1>
+        <p class="lead">ECE 5725 Fall 2022<br>Real-time Monitoring System with Autonomous Tracking, Streaming, and Smart Alert Functions<br>By: Zechen Wang(zw652), Zhongqi Tao(zt88)</p>
+      </div>
+
+      <hr>
+      <div class="center-block">
+          <iframe width="640" height="360" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+          <h4 style="text-align:center;">Demonstration Video</h4>
+      </div>
+
+      <hr id="intro">
+
+      <div style="text-align:center; font-size:18px">
+              <h2>Introduction</h2>
+              <p style="text-align: left;padding: 0px 30px;">Taking care of baby has always a been difficult task for lots of families, regardless of their experiences in baby-sitting. Our project is to the rescue – it provides autonomous tracking functions to make sure that your babies are safely staying in their rooms.<br><br>With this application, parents would be able to monitor what's going on in babies' rooms whenever they feel necessary, with just a click in a browser. When you're busy working, the system can also autonomously focus the camera on babies and record pictures whenever there's a sound impulse or a crying sound. With additional protection of PIR motion sensors and our smart text alert system, you will know immediately on your phone when your babies try to leave the room. Our program also includes a user-friendly graphical interface on piTFT that anyone can learn how to use in a minute!</p>
+      </div>
+
+    <hr id='obj'>
+
+      <div class="row">
+          <div class="col-md-4" style="text-align:center;">
+          <img class="img-rounded" src="pics/system.jpg" alt="Generic placeholder image" width="360" height="360" style="margin-top: 60px;">
+          </div>
+          <div class="col-md-8" style="font-size:18px;">
+          <h2>Project Objectives:</h2>
+          <ul>
+              <li>Use a camera to autonomously track the position of a tag attached to the baby's wear when streaming video feed to a website. </li>
+              <li>A set of motors that enables the camera to rotate both horizontally and vertically. The tag location information from camera will be fed to the motor controller to center the tag in the camera frame.</li>
+              <li>Use a Microphone which processes sound inputs from its surroundings to detect whether there are unusual sound impulses in the environment.</li>
+              <li>Include a set of PIR sensors in the system to detect motion passing through doors of a room / boundaries of a designated safe zone. </li>
+              <li>Implement a smart text alert system to notify parents whenever there are suspicious activities(tags missing/sound impulses/PIR signals/etc.)</li>
+              <li>Design a GUI on piTFT to let users manually toggle on/off functions according to their needs.</li>          
+            </ul>
+          </div>
+      </div>
+
+    <hr id='design'>
+
+      <div style="text-align:center; font-size:18px">
+              <h2>Design</h2>
+              <p style="text-align: left;padding: 0px 30px;">There are three main functions of the system plus a pygame based interface to control these functions. Basically, the working principle of the system is demonstrated as the figure below shows, followed by the design procedure of each function described.</p>
+              <img class="img-rounded" src="pics/drawings.jpg" alt="Generic placeholder image" style="width:70%;">
+
+              <h4>Camera</h4>
+              <p style="text-align: left;padding: 0px 30px;"> Our system is equipped with a camera for multiple purposes. The camera we used is the Raspberry Pi night vision camera, in order to support program function under different lighting conditions for 24/7 operation. The camera will have infrared emitters turned on all the time, which would not affect its operation under normal lighting conditions, and could improve its performance under low light condition with no switching time. We want the camera to be able to rotate itself to provide autonomous tracking functions, so we added a camera mount with two servo motors, so that it could rotate both horizontally and vertically. </p>
+              <img class="img-rounded" src="pics/cam.jpg" alt="Generic placeholder image" style="width:30%;">
+              <p style="text-align: left;padding: 0px 30px;"> With the camera installed in our system, we want to achieve both live streaming and automatic baby detection. Starting with live streaming, we deployed a flask server to publish the video feed we get from the camera input. Since we are also using the same camera feed to processing purposes, and to account for different colors being displayed when lighting condition changes, we are displaying all videos in greyscale. The flask server simply receives the frame information from the camera, and publishes it on a webpage accessible from a port number on localhost. In order for users to access it, they need to be on the same local area network, but it could potentially be expanded to be a cloud server hosting the webpage so that the video feed could be accessible from anywhere. On the website interface, there is also a "Take picture" button so that users could used to manually save screenshots on the SD card of Pi so that they could retrieve later. </p>
+              <img class="img-rounded" src="pics/stream.png" alt="Generic placeholder image" style="width:30%;">
+              <img class="img-rounded" src="pics/ui.png" alt="Generic placeholder image" style="width:20%; margin-left: 100px;">
+              <p style="text-align: left;padding: 0px 30px;"> Subsequently, we have the automatic baby detection function. We decided to use visual indicators to help us tracking the exact location of the baby so that tracking works under all lighting conditions. We are using a tag system named "Apriltag", which is a QR-code like system that can be easily recognized from distance. By using the video stream we're publishing onto the webpage, we process the video data frame-by-frame in real time to see if there are any tags detected. As soon as we see a tag in the frame, we would try to center it by rotating the two servos. Specifically, we are controlling the servos with hardware PWM for better stability. </p>
+              <img class="img-rounded" src="pics/tags.png" alt="Generic placeholder image" style="width:30%;">
+              
+              <h4>Sound Detection</h4>
+              <p style="text-align: left;padding: 0px 30px;">We have a microphone component in our system, which continuously samples signal from the environment and performs signal processing. Specifically, we are using the python library "sounddevice" to collect raw microphone readings and perform Fast Fourier Transforms to get the frequency domain signals. The microphone component is the following hardware connected to USB port of our system:</p>
+              <img class="img-rounded" src="pics/mic.jpg" alt="Generic placeholder image" style="width:30%;">
+              <p style="text-align: left;padding: 0px 30px;">With signal processing, we want to eliminate environmental noises so that we do not count part of the persisting noise as part of the "sudden impulses". In order to achieve that, we implemented a band-pass filter that only the middle 80% of frequencies would be count as valid signals. After filtering, we perform inverse FFT to revert the signal back to time domain, and inspect if there are sudden changes in signal strength over time. We compare each data point with the average intensity of the sample, and see whether it is above a scalable threshold (such as 50x average intensity).</p>
+              <p style="text-align: left;padding: 0px 30px;"> As soon as a sound is impulse is identified using our processing pipeline, our system will attempt to send a text message to a preconfigured recipient to notify that there is sound impulse in the environment using a text API. It will also take a picture and save it locally on the SD card, which the user could use our interface to view on the piTFT screen later. The mechanism is that the process responsible for microphone inputs will communicate using a FIFO with another process that is reading camera frames. As the camera process receive the take photo instruction, it will complete the capture and save procedure. Details of the interface for photo viewing will be introduced later in the "interface" section. </p>
+              <img class="img-rounded" src="pics/sound.jpg" alt="Generic placeholder image" style="width:30%;">     
+              
+              <h4>SMS</h4>
+              <p style="text-align: left;padding: 0px 30px;">We used the TextBelt API to send messages to our users. With a preconfigured profile of our user’s phone number, and out API key, we will be able to send a text message with customized contents with simply an HTTP request to the API server.</p>
+              <img class="img-rounded" src="pics/sms.jpg" alt="Generic placeholder image" style="width:30%;">
+
+
+              <h4>Motion Detection using PIR sensors</h4>
+              <p style="text-align: left;padding: 0px 30px;">The third function of the system is to limit an area where the baby can move and play freely, while as soon as the baby is moving out of regulated area, parents can get alert by text message. To realize this function, two PIR sensors are used to provide left and right boundaries of the playground and the function to send text messages is just the same as the one used in previous part.</p>
+              <img class="img-rounded" src="pics/PIR.jpg" alt="Generic placeholder image" style="width:30%;">
+              <p style="text-align: left;padding: 0px 30px;">PIR motion sensors (Passive Infrared Sensor) are used to detect motions in a certain area. Instead of emitting radiation, it actually detects the changes in infrared radiation of the source and once the change is detected, it generates a digital high output signal. Based on its working principle, "interrupt" can be implemented on the GPIOs connected to the two PIR sensors in response to the digital signal change. Functions are defined respectively for left and right PIR sensors to send text messages to parents. If the rising edge of GPIO connecting to PIR sensor is detected, it means there has been a motion across that sensor, hence corresponding function can be called to send text message, as figure below shows the messages sent from left and right motion sensor respectively.</p>
+              <img class="img-rounded" src="pics/motion.jpg" alt="Generic placeholder image" style="width:30%;">
+
+              <h4>Pygame Interface</h4>
+              <p style="text-align: left;padding: 0px 30px;">To control the functions mentioned above individually, a pygame based interface is designed and "pm2" process manager is implemented to start and shut down the function scripts. </p>
+              <p style="text-align: left;padding: 0px 30px;">"pm2" is a production process manager which can run and stop scripts by sending commands in console window accordingly. The scripts of these three functions are firstly added to the "pm2" list so that they can be controlled by "pm2" directly.</p>
+              <p style="text-align: left;padding: 0px 30px;">The UI is designed as shown below, where each button can send "pm2" command to the console window to start running the script for each function if the toggle button under function name is clicked to be ON. If the button is clicked again to be OFF, command will be sent to console window to stop running the corresponding function script. However, the scripts will not be removed from the "pm2" list to ensure that "pm2" can always control these scripts through pygame interface.</p>
+              <img class="img-rounded" src="pics/interface.jpg" alt="Generic placeholder image" style="width:30%;">
+              <p style="text-align: left;padding: 0px 30px;">Apart from the three toggle buttons to run and stop function scripts, the "view photo" button on the left bottom corner can view the photo took when the loud sound is detected by sound detection function. </p>
+              <p style="text-align: left;padding: 0px 30px;">After the button is clicked, the photo is shown in the middle and the "back" button on the bottom can back to the previous main menu. </p>
+              <img class="img-rounded" src="pics/view_photo.png" alt="Generic placeholder image" style="width:30%;">
+              <p style="text-align: left;padding: 0px 30px;">The quit button can stop all the running function scripts, quit the UI and back to the console window.</p>
+      </div>
+
+    <hr id='testing'>
+
+      <div style="text-align:center; font-size:18px">
+              <h2>Testing</h2>
+              <p style="text-align: left;padding: 0px 30px;">We encountered many problems when we finished development of each function and trying to integrate them together. We had to go back and modify implementation of some functions, and eventually formed the designs of the system as mentioned before.</p>
+              <li style="text-align: left;padding: 0px 30px; font-size: 20px; margin-top: 25px; margin-bottom: 20px; font-weight: bold;">Blocking issue resulted from 'sounddevice' library</li>
+              <p style="text-align: left;padding: 0px 30px; font-style: italic; font-size: 20px;">Problem description:</p>
+              <p style="text-align: left;padding: 0px 30px;">Initially, we decided to develop and test each function separately and include all of them into a main script's forever while loop, plus a keyboard interrupt or quit button which can end the main function. This means all the three functions of our system have to run and shut down simultaneously. </p>
+              <p style="text-align: left;padding: 0px 30px;">However, as mentioned in the sound detection script, we implemented 'sounddevice' library to define a function to record and process audio information every second, and invoked that function in a loop. The library has a property that when it is recording audio in the regulated time, it blocks the script at the line which performs recording while stops executing all the following codes.</p>
+              <p style="text-align: left;padding: 0px 30px;">This property brought to a problem that if the scripts for all the functions are integrated in a same main script, the other functions have to stop running and wait until audio recording in sound detection function has finished.</p>
+              <p style="text-align: left;padding: 0px 30px;font-style: italic; font-size: 20px; margin-top: 25px;">Solution:</p>
+              <p style="text-align: left;padding: 0px 30px;">To address the problem, multithreading came up to our mind which means scripts for each function can run individually instead of integrating them into a single main script, so that the recording part in sound detection script would only block the script itself, which is exactly what we intended, since following signal processing part must wait until the recording of audio information has finished. </p>
+              <p style="text-align: left;padding: 0px 30px;">While multithreading also means that sound detection script has no direct access to the camera streaming script to take a photo when loud sound has been detected. Therefore, a thread event was added and if the loud sound is detected, the event can trigger camera script to capture a frame.</p>
+
+              <li style="text-align: left;padding: 0px 30px; font-size: 20px; margin-top: 25px; margin-bottom: 20px; font-weight: bold;">Flask app not compatible with multithreading </li>
+              <p style="text-align: left;padding: 0px 30px;font-style: italic; font-size: 20px;">Problem description:</p>
+              <p style="text-align: left;padding: 0px 30px;">As mentioned in the 'track and stream' function, we are using a flask app to stream the live video to a html so that users can get access to the live stream through any mobile devices connected to the same local area network. However, the host function which turns on the html website could not be triggered via a defined thread, which means even though the camera is proper functioning, users are not going to get access to the captured frame from mobile devices.</p>
+              <p style="text-align: left;padding: 0px 30px;font-style: italic; font-size: 20px; margin-top: 25px;">Solution:</p>
+              <p style="text-align: left;padding: 0px 30px;">Eventually, we had to give up using multithreading to run different functions individually. Instead, we used the process manager application "pm2" to control the scripts. The scripts were added to the list of "pm2" manager so that they are always in the backstage waiting to be invoked. By implementing corresponding commands, each script can start to run and stop individually. Therefore, both blocking issue and compatible issue were addressed. </p>
+      </div>
+
+
+    <hr id='results'>
+
+      <div style="text-align:center; font-size:18px">
+              <h2>Results and conclusions</h2>
+              <p style="text-align: left;padding: 0px 30px;">Fortunately, everything we had completed worked well with no significant issues. While there are still some flaws which can be further improved:</p>
+              <p style="text-align: left;padding: 0px 30px;"><strong>1.	Tracking and stream function:</strong> The html website displaying live video must be open on a device so that the camera will turn on. If the website is off, the camera is closed as well. </p>
+              <p style="text-align: left;padding: 0px 30px;"><strong>2.	Sound detection function:</strong> In the 'sound detection' function, when a loud sound is detected, the camera must be on so that it can store a photo, which means without the 'live stream' function on, although 'sound detection' can still send text messages when a loud sound has been detected, it cannot take a new photo and the photo displayed on the piTFT when clicking 'view photo' button is the last stored photo. </p>
+              <p style="text-align: left;padding: 0px 30px;"><strong>3.	Night vision camera:</strong> The night vision camera has a pair of infrared light on both sides of the camera which are always turned on. Although the infrared radiation can help illuminate environment when light condition is poor so that the system can get visible frames during night, infrared also results in color aberration during daytime which can affect accuracy of Apriltag detection. Eventually we had to convert frames from RGB to grayscale to ensure better Apriltag tracking.</p>
+      </div>
+
+    <hr id='future'>
+
+      <div style="text-align:center; font-size:18px">
+              <h2>Future work</h2>
+              <p style="text-align: left;padding: 0px 30px;">If given more time, we definitely would like to address the flaws mentioned above. We can separate the camera and tracking part from the streaming part so that no matter whether the website is turned on or off the camera is always turned on and tracking the Apriltag, preventing camera from losing target if it restarts.</p>
+              <p style="text-align: left;padding: 0px 30px;">Besides, we can create a album to store all the photos taken when loud sound is detected instead of just storing the most recent one.</p>
+              <p style="text-align: left;padding: 0px 30px;">Finally, we can implement a better night vision camera which can adjust infrared light based on light condition. In this way, we can stream colorful video during daytime to improve user experience.</p>
+      </div>
+
+    <hr id='work'>
+    <div class="row" style="text-align:center; font-size:18px">
+          <h2>Work Distribution</h2>
+          <!-- <div style="text-align:center;">
+              <img class="img-rounded" src="pics/group.jpg" alt="Generic placeholder image" style="width:65%;">
+              <h4>Project group picture</h4>
+          </div> -->
+          <div class="col-md-6" style="font-size:16px">
+              <img class="img-rounded" src="pics/zechen.png" alt="Generic placeholder image" width="230" height="250">
+              <h3>Zechen Wang</h3>
+              <p class="lead">zw652@cornell.edu</p>
+              <p> Designed overall software architecture, audio processing technique and pygame interface, implemented Apriltag and SMS. Tested and debugged overall system.
+          </div>
+          <div class="col-md-6" style="font-size:16px">
+              <img class="img-rounded" src="pics/zhongqi.jpg" alt="Generic placeholder image" width="250" height="240">
+              <h3>Zhongqi Tao</h3>
+              <p class="lead">zt88@cornell.edu</p>
+              <p> Designed overall software architecture and audio processing technique, conducted hardware connection and integration, implemented video streaming and servo motor control. Tested and debugged overall system. 
+          </div>
+      </div>
+    
+    
+     <hr>
+      <div style="font-size:18px">
+          <h2>Parts List</h2>
+         <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th scope="col">Components</th>
+                          <th scope="col">Cost</th>                          
+                          <th scope="col">Number</th>
+                          <th scope="col">Total Cost</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <th scope="row">Raspberry Pi 4 upgrade</th>
+                          <td>$ 45.00</td>
+                          <td>1</td>
+                          <td>$ 45.00</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Night vision camera</th>
+                          <td>$ 25.00</td>
+                          <td>1</td>
+                          <td>$ 25.00</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">PIR sensor</th>
+                          <td>$ 5.75</td>
+                          <td>2</td>
+                          <td>$ 11.50</td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">USB microphone</th>
+                        <td>$ 3.99</td>
+                        <td>1</td>
+                        <td>$ 3.99</td>
+                      </tr>
+
+                      <tr>
+                          <th scope="row">Servos, piTFT, Resistors and Wires</th>
+                          <td></td>
+                          <td></td>
+                          <td>Provided in lab</td>
+                      </tr>
+                      <tr>
+                          <th scope="row"></th>
+                          <td></td>
+                          <td class="table-info">Final Cost</td>
+                          <td class="table-info">$ 85.49</td>
+                      </tr>
+                  </tbody>                      
+              </table>
+      </div>
+    
+    
+      <hr>
+      <div style="font-size:18px">
+          <h2>References</h2>
+          <a href="https://arxiv.org/pdf/1710.07557.pdf">[1] Image classification researches using CNN</a><br>
+          <a href="https://blog.piwheels.org/how-to-work-out-the-missing-dependencies-for-a-python-package/">[2] Dependency reference</a><br>
+          <a href="https://github.com/EbenKouao/pi-camera-stream-flask"> [3] pi-camera-stream-flask</a><br>
+          <a href="https://robocraze.com/blogs/post/pir-sensor-working-principle">[4] Working Principle of PIR sensors</a><br>
+          <a href="https://pm2.io/">[5] Process Manager pm2 Introduction</a><br>
+          <a href="https://medium.com/@abhizcc/installing-latest-tensor-flow-and-keras-on-raspberry-pi-aac7dbf95f2">[6] TensorFlow & Keras installation</a><br>
+          <a href="https://textbelt.com/">[7] TextBelt API</a><br>
+          <a href="http://abyz.co.uk/rpi/pigpio/">[8] Pigpio Library</a><br>
+          <a href="https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/">[9] R-Pi GPIO Document</a><br>
+          <a href="http://www.micropik.com/PDF/SG90Servo.pdf">[10] Tower Pro Servo Datasheet</a><br>
+          <a href="https://april.eecs.umich.edu/software/apriltag">[11] Apriltag Reference</a><br>
+          <a href="https://www.ece.cornell.edu/faculty-directory/joseph-skovira"> [12] This HTML Template provided by Joseph Skovira</a><br>
+          
+
+
+
+
+      </div>
+
+    <hr>
+
+
+    <section class="page-header">
+      <p style="text-align: left;text-align: center; font-size: 30px;"> Code Appendix </p>
+      <a href="https://github.com/zechenwang00/ECE-5725-F22" class="btn" style="font-size: 18px;">View on GitHub</a>
+    </section>
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  </body>
+</html>
